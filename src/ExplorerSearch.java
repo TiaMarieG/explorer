@@ -32,7 +32,15 @@ public class ExplorerSearch {
         // Implement your method here!
         // Please also make more test cases
         // I STRONGLY RECOMMEND testing some helpers you might make too
-        return -1;
+
+        // Finding the explorer
+        int[] startingPosition = explorerLocation(island);
+
+        // Boolean array to check if a node has been visited
+        boolean[][] visited = new boolean[island.length][island[0].length];
+
+
+        return reachableArea(island, startingPosition, visited);
     }
 
     // First we want to find the explorer
@@ -95,5 +103,29 @@ public class ExplorerSearch {
         return moves;
     }
 
-    //
+    // Finally - Check to see how much of the island the explorer can reach without backtracking over themselves (No infinite loop)
+    public static int reachableArea(int[][] island, int[] currentPosition, boolean[][] visited) {
+        
+        // Base cases
+        int currentR = currentPosition[0];
+        int currentC = currentPosition[1];
+
+        // If the spot has already been visited, return 0
+        if (visited[currentR][currentC]) return 0;
+
+        // Mark the locations as visited
+        visited[currentR][currentC] = true;
+
+        // Count the spot where the explorer starts
+        int visitedAreas = 1;
+
+        // Look at the neighbors
+        List<int[]> possibleMoves = possibleMoves(island, currentPosition);
+
+        for (int[] move : possibleMoves) {
+            visitedAreas += (reachableArea(island, move, visited));
+        }
+        
+        return visitedAreas;
+    }
 }
