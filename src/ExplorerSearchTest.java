@@ -125,7 +125,38 @@ public class ExplorerSearchTest {
     }
 
     @Test
-    public void testPossibleMoves_partialEdge() {
+    public void testPossibleMoves_onlyPathRight() {
+        int[][] island = {
+            {1,1,1,1,1,1},
+            {1,3,2,3,1,1},
+            {1,2,0,1,1,1},
+            {1,3,2,3,1,1},
+            {1,1,1,1,1,1},
+        };
+        int[] location = {2, 2};
+        List<int[]> moves = ExplorerSearch.possibleMoves(island, location);
+        Set<String> moveSet = toSet(moves);
+
+        assertEquals(1, moves.size());
+        assertTrue(moveSet.contains("2,3")); // Right
+    }
+
+    @Test
+    public void testPossibleMoves_diagonalOpen_cantMove() {
+        int[][] island = {
+            {1,1,1,1,1,1},
+            {1,1,2,1,1,1},
+            {1,2,0,2,1,1},
+            {1,1,2,1,1,1},
+            {1,1,1,1,1,1},
+        };
+        int[] location = {2, 2};
+        List<int[]> moves = ExplorerSearch.possibleMoves(island, location);
+        assertTrue(moves.isEmpty());
+    }
+
+    @Test
+    public void testPossibleMoves_partialEdgeLeft() {
         int[][] island = {
             {1,1,1,1,1,0}
         };
@@ -134,7 +165,20 @@ public class ExplorerSearchTest {
         Set<String> moveSet = toSet(moves);
 
         assertEquals(1, moves.size());
-        assertTrue(moveSet.contains("0,4")); // only left
+        assertTrue(moveSet.contains("0,4")); // Only left
+    }
+
+    @Test
+    public void testPossibleMoves_partialEdgeRight() {
+        int[][] island = {
+            {0,1,1,1,1,1}
+        };
+        int[] location = {0, 0};
+        List<int[]> moves = ExplorerSearch.possibleMoves(island, location);
+        Set<String> moveSet = toSet(moves);
+
+        assertEquals(1, moves.size());
+        assertTrue(moveSet.contains("0,1")); // Only right
     }
 
     @Test
@@ -149,8 +193,8 @@ public class ExplorerSearchTest {
         Set<String> moveSet = toSet(moves);
 
         assertEquals(2, moves.size());
-        assertTrue(moveSet.contains("1,1")); // left
-        assertTrue(moveSet.contains("1,3")); // right
+        assertTrue(moveSet.contains("1,1")); // Left
+        assertTrue(moveSet.contains("1,3")); // Right
     }
     
     // Helper function from matrix-livecode
