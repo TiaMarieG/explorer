@@ -34,4 +34,24 @@ public class ExplorerSearch {
         // I STRONGLY RECOMMEND testing some helpers you might make too
         return -1;
     }
+
+    // First we want to find the explorer
+    public static int[] explorerLocation(int[][] island) {
+
+        for (int r = 0; r < island.length; r++) {
+            // Array is not a square, so need to account for jagged size
+            for (int c = 0; c < island[r].length; c++) {
+                if (island[r][c] == 0) {
+                    return new int[]{r, c};
+                }
+            }        
+        }
+
+        throw new IllegalArgumentException("No explorer present");
+    }
+
+    // Now we want to determine where the explorer can move
+    public static List<int[]> possibleMoves(int[][] enclosure, int[] currentLocation) {
+        
+    }
 }
