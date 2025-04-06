@@ -101,7 +101,7 @@ public class ExplorerSearchTest {
         };
         int[] location = {2, 2};
         List<int[]> moves = ExplorerSearch.possibleMoves(island, location);
-        Set<List<Integer>> moveSet = toSet(moves);
+        Set<String> moveSet = toSet(moves);
 
         assertEquals(4, moves.size());
         assertTrue(moveSet.contains("1,2")); // up
@@ -148,8 +148,17 @@ public class ExplorerSearchTest {
         List<int[]> moves = ExplorerSearch.possibleMoves(island, location);
         Set<String> moveSet = toSet(moves);
 
-        assertEquals(4, moves.size());
+        assertEquals(2, moves.size());
         assertTrue(moveSet.contains("1,1")); // left
         assertTrue(moveSet.contains("1,3")); // right
+    }
+    
+    // Helper function from matrix-livecode
+    private Set<String> toSet(List<int[]> list) {
+        Set<String> set = new HashSet<>();
+        for (int[] arr : list) {
+            set.add(arr[0] + "," + arr[1]);
+        }
+        return set;
     }
 }
