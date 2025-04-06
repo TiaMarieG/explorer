@@ -51,7 +51,47 @@ public class ExplorerSearch {
     }
 
     // Now we want to determine where the explorer can move
-    public static List<int[]> possibleMoves(int[][] enclosure, int[] currentLocation) {
-        
+    public static List<int[]> possibleMoves(int[][] island, int[] currentLocation) {
+
+        // Creating variables for currentLocation indices
+        int currentR = currentLocation[0]; // {0, -}
+        int currentC = currentLocation[1]; // {-, 1}
+
+        // List of int arrays that stores pair values of where explorer can move
+        List<int[]> moves = new ArrayList<>();
+
+        // Checking UP
+        int newR = currentR - 1;
+        int newC = currentC;
+
+        if (newR >= 0 && island[newR][newC] != 2 && island[newR][newC] != 3) {
+            moves.add(new int[]{newR, newC});
+        }
+
+        // Checking DOWN
+        newR = currentR + 1;
+        newC = currentC;
+
+        if (newR < island.length && island[newR][newC] != 2 && island[newR][newC] != 3) {
+            moves.add(new int[]{newR, newC});
+        }
+
+        // Checking LEFT
+        newR = currentR;
+        newC = currentC - 1;
+
+        if (newC >= 0 && island[newR][newC] != 2 && island[newR][newC] != 3) {
+            moves.add(new int[]{newR, newC});
+        }
+
+        // Checking RIGHT
+        newR = currentR;
+        newC = currentC + 1;
+
+        if (newC < island[0].length && island[newR][newC] != 2 && island[newR][newC] != 3) {
+            moves.add(new int[]{newR, newC});
+        }
+
+        return moves;
     }
 }

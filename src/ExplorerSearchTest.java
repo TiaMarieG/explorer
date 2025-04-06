@@ -1,5 +1,6 @@
 import static org.junit.Assert.*;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -100,7 +101,7 @@ public class ExplorerSearchTest {
         };
         int[] location = {2, 2};
         List<int[]> moves = ExplorerSearch.possibleMoves(island, location);
-        Set<String> moveSet = toSet(moves);
+        Set<List<Integer>> moveSet = toSet(moves);
 
         assertEquals(4, moves.size());
         assertTrue(moveSet.contains("1,2")); // up
